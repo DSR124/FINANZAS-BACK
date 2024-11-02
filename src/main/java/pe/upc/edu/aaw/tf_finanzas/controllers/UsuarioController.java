@@ -11,12 +11,11 @@ import pe.upc.edu.aaw.tf_finanzas.servicesinterfaces.IUsuarioService;
 import java.util.List;
 import java.util.stream.Collectors;
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/Usuario")
 public class UsuarioController {
 
     @Autowired
     private IUsuarioService uS;
-
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,5 +55,8 @@ public class UsuarioController {
         UsuarioDTO u= m.map(uS.listId(id), UsuarioDTO.class);
         return u;
     }
-
+    @GetMapping("ultimoUsuario")
+    public int encontrarUltimoUsuario(){
+        return uS.findLastUserRegister();
+    }
 }

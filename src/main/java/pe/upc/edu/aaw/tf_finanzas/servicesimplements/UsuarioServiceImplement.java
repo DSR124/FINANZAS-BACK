@@ -33,5 +33,12 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public Usuario listId(int idUsuario) {
         return uR.findById(idUsuario).orElse(new Usuario());
     }
+    public int findLastUserRegister() {
+        return uR.findLastUserRegister();
+    }
 
+    @Override
+    public Usuario findByUsername(String username) {
+        return uR.findByUsername(username);
+    }
 }

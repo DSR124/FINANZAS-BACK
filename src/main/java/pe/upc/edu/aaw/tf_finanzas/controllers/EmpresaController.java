@@ -53,4 +53,12 @@ public class EmpresaController {
         EmpresaDTO emp= m.map(EmprR.listId(id), EmpresaDTO.class);
         return emp;
     }
+
+    @GetMapping("ListarPorUsuario/{username}")
+    public List<EmpresaDTO> listarPorUsuario(@PathVariable("username") String username) {
+        ModelMapper modelMapper = new ModelMapper();
+        return EmprR.findByUsuario_Username(username).stream()
+                .map(empresa -> modelMapper.map(empresa, EmpresaDTO.class))
+                .collect(Collectors.toList());
+    }
 }

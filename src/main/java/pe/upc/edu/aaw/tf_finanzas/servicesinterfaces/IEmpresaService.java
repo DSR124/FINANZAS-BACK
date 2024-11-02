@@ -9,4 +9,6 @@ public interface IEmpresaService {
     public List<Empresa> list();
     public void delete(int IdEmpresa);
     public Empresa listId(int idEmpresa);
+    List<Empresa> listByUserId(Integer userId);
+    List<Empresa> findByUsuario_Username(String username);
 }

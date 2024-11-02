@@ -58,11 +58,13 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        //Desde Spring Boot 3.1+
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(
+                                "/Usuario/Registrar",
+                                "/Usuario/ultimoUsuario",
+                                "/Rol/Registrar",// Permitir el acceso sin autenticación a /Usuario/Registrar
                                 "/api/v1/auth/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
@@ -77,11 +79,10 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/login",
                                 "media/**",
-                                "/users/**",
-                                "/cities/**",
-                                "/roles/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                                "/Usuario/**",
+                                "/Rol/**"
+                        ).permitAll() // Permitir acceso sin autenticación a las URLs listadas
+                        .anyRequest().authenticated() // Requiere autenticación para cualquier otra solicitud
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
