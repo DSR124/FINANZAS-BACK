@@ -10,7 +10,7 @@ public class BancoDTO {
 
     private int idBanco;
     private String nombre;
-    private String imageUrl;
+    private byte[] imageUrl;
     private double balance;
     private double tasaNomninal;
     private double tasaEfectiva;
@@ -33,20 +33,20 @@ public class BancoDTO {
         this.nombre = nombre;
     }
 
+    public byte[] getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(byte[] imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public double getBalance() {
         return balance;
     }
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public double getTasaNomninal() {

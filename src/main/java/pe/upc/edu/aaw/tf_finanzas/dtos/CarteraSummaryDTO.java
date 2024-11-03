@@ -1,10 +1,12 @@
 package pe.upc.edu.aaw.tf_finanzas.dtos;
 
+import java.time.LocalDate;
+
 public class CarteraSummaryDTO {
     private Integer idCartera;
     private String nombreCartera;
-    private String fechaCreacion;
-    private String fechaDescuento;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaDescuento;
     private String nombreEmpresa;
     private Double tcea;
     private String moneda;
@@ -27,19 +29,19 @@ public class CarteraSummaryDTO {
         this.nombreCartera = nombreCartera;
     }
 
-    public String getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(String fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public String getFechaDescuento() {
+    public LocalDate getFechaDescuento() {
         return fechaDescuento;
     }
 
-    public void setFechaDescuento(String fechaDescuento) {
+    public void setFechaDescuento(LocalDate fechaDescuento) {
         this.fechaDescuento = fechaDescuento;
     }
 

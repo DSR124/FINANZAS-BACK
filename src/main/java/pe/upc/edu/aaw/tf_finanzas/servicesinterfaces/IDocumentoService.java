@@ -9,4 +9,6 @@ public interface IDocumentoService {
     public List<Documento> list();
     public void delete(int idDocumento);
     public Documento listId(int idDocumento);
+    List<Object[]> findDocumentosByCarteraId(int idCartera);
+
 }

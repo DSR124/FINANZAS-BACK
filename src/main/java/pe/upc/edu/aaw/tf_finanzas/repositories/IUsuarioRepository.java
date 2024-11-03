@@ -14,9 +14,9 @@ public interface IUsuarioRepository  extends JpaRepository<Usuario,Integer> {
     public Usuario findByUsername(String username);
 
     //BUSCAR POR NOMBRE
-    @Query("select count(u.username) from Usuario u where u.username =:username")
+    @
+    Query("select count(u.username) from Usuario u where u.username =:username")
     public int buscarUsername(@Param("username") String nombre);
-
 
     @Transactional
     @Modifying
