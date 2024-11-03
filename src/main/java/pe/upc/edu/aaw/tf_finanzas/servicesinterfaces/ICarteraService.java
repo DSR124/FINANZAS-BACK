@@ -9,4 +9,5 @@ public interface ICarteraService {
     public List<Cartera> list();
     public void delete(int idCartera);
     public Cartera listId(int idCartera);
+    List<String[]> findAllCarteraWithDocumentCountAndTotalValue();
 }

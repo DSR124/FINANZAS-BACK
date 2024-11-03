@@ -4,9 +4,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.upc.edu.aaw.tf_finanzas.dtos.CarteraDTO;
+import pe.upc.edu.aaw.tf_finanzas.dtos.CarteraSummaryDTO;
 import pe.upc.edu.aaw.tf_finanzas.entities.Cartera;
 import pe.upc.edu.aaw.tf_finanzas.servicesinterfaces.ICarteraService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,4 +53,35 @@ public class CarteraController {
         CarteraDTO emp= m.map(carteR.listId(id), CarteraDTO.class);
         return emp;
     }
+
+
+    @GetMapping("/cantidadReservaPorusuario")
+    public List<CarteraSummaryDTO> CarteraSummary(){
+        List<String[]> listaa = carteR.findAllCarteraWithDocumentCountAndTotalValue();
+        List<CarteraSummaryDTO> lista_DTO = new ArrayList<>();
+        for(String[] data:listaa){
+
+            CarteraSummaryDTO dto = new CarteraSummaryDTO();
+            dto.setIdCartera(Integer.parseInt(data[0]));
+            dto.setNombreCartera(data[1]);
+            dto.setFechaCreacion(data[2]);
+            dto.setFechaDescuento(data[3]);
+            dto.setNombreEmpresa(data[4]);
+
+            // Asegúrate de que data[5] contenga un valor que pueda ser convertido a Double
+            dto.setTcea(Double.parseDouble(data[5]));
+
+            dto.setMoneda(data[6]);
+
+            // Convierte data[7] a Long, si es necesario
+            dto.setCantidadDocumentos(Long.parseLong(data[7]));
+
+            // Convierte data[8] a Double, si es necesario
+            dto.setMontoTotalCartera(Double.parseDouble(data[8]));
+
+            lista_DTO.add(dto);
+        }
+        return lista_DTO;
+    }
+
 }

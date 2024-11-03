@@ -3,11 +3,13 @@ package pe.upc.edu.aaw.tf_finanzas.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pe.upc.edu.aaw.tf_finanzas.dtos.CarteraSummaryDTO;
 import pe.upc.edu.aaw.tf_finanzas.dtos.ContratoDTO;
 import pe.upc.edu.aaw.tf_finanzas.entities.Contrato;
 import pe.upc.edu.aaw.tf_finanzas.servicesinterfaces.IContratoService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @RestController
@@ -52,4 +54,9 @@ public class ContratoController {
         ContratoDTO emp= m.map(contR.listId(id), ContratoDTO.class);
         return emp;
     }
+
+
+
+
+
 }
