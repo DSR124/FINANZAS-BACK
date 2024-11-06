@@ -12,10 +12,6 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="fechaCompra",nullable = false)
-    private LocalDate fechaCompra;
-    @Column(name ="fechaPago", nullable = false)
-    private LocalDate fechaPago;
     @Column(name ="currency", length = 50, nullable = false)
     private String currency;
     @Column(name ="valorNominal", nullable = false)
@@ -47,10 +43,8 @@ public class Contrato {
     public Contrato() {
     }
 
-    public Contrato(Long id, LocalDate fechaCompra, LocalDate fechaPago, String currency, double valorNominal, double tasaDescontada, double valorRecibido, Integer dias, double tep, String tipoTasa, double valorTasa, String estado, Documento documento, Banco banco) {
+    public Contrato(Long id, String currency, double valorNominal, double tasaDescontada, double valorRecibido, Integer dias, double tep, String tipoTasa, double valorTasa, String estado, Documento documento, Banco banco) {
         this.id = id;
-        this.fechaCompra = fechaCompra;
-        this.fechaPago = fechaPago;
         this.currency = currency;
         this.valorNominal = valorNominal;
         this.tasaDescontada = tasaDescontada;
@@ -70,22 +64,6 @@ public class Contrato {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getFechaCompra() {
-        return fechaCompra;
-    }
-
-    public void setFechaCompra(LocalDate fechaCompra) {
-        this.fechaCompra = fechaCompra;
-    }
-
-    public LocalDate getFechaPago() {
-        return fechaPago;
-    }
-
-    public void setFechaPago(LocalDate fechaPago) {
-        this.fechaPago = fechaPago;
     }
 
     public String getCurrency() {
@@ -112,20 +90,20 @@ public class Contrato {
         this.tasaDescontada = tasaDescontada;
     }
 
-    public Integer getDias() {
-        return dias;
-    }
-
-    public void setDias(Integer dias) {
-        this.dias = dias;
-    }
-
     public double getValorRecibido() {
         return valorRecibido;
     }
 
     public void setValorRecibido(double valorRecibido) {
         this.valorRecibido = valorRecibido;
+    }
+
+    public Integer getDias() {
+        return dias;
+    }
+
+    public void setDias(Integer dias) {
+        this.dias = dias;
     }
 
     public double getTep() {

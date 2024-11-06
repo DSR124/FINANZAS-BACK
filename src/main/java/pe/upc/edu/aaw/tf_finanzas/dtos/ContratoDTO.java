@@ -3,8 +3,6 @@ import java.time.LocalDate;
 
 public class ContratoDTO {
     private Long id;
-    private LocalDate fechaCompra;
-    private LocalDate fechaPago;
     private String currency;
     private double valorNominal;
     private double tasaDescontada;
@@ -23,22 +21,6 @@ public class ContratoDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getFechaCompra() {
-        return fechaCompra;
-    }
-
-    public void setFechaCompra(LocalDate fechaCompra) {
-        this.fechaCompra = fechaCompra;
-    }
-
-    public LocalDate getFechaPago() {
-        return fechaPago;
-    }
-
-    public void setFechaPago(LocalDate fechaPago) {
-        this.fechaPago = fechaPago;
     }
 
     public String getCurrency() {
