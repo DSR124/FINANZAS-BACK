@@ -33,4 +33,13 @@ public class EmpresaServiceImplement implements IEmpresaService {
     public Empresa listId(int idEmpresa) {
         return EmprR.findById(idEmpresa).orElse(new Empresa());
     }
+    @Override
+    public List<Empresa> listByUserId(Integer userId) {
+        return EmprR.findByUsuario_IdUsuario(userId);
+    }
+
+    @Override
+    public List<Empresa> findByUsuario_Username(String username) {
+        return EmprR.findByUsuario_Username(username);
+    }
 }

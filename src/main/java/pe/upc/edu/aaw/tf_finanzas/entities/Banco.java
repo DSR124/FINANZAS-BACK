@@ -14,8 +14,8 @@ public class Banco {
     private int idBanco;
     @Column(name ="nombre", length = 50, nullable = false)
     private String nombre;
-    @Column(name ="imageUrl", length = 50, nullable = false)
-    private String imageUrl;
+    @Column(name ="imageUrl", nullable = false)
+    private byte[] imageUrl;
     @Column(name ="balance", nullable = false)
     private double balance;
     @Column(name ="tasaNomninal", nullable = false)
@@ -34,7 +34,7 @@ public class Banco {
     public Banco() {
     }
 
-    public Banco(int idBanco, String nombre, String imageUrl, double balance, double tasaNomninal, double tasaEfectiva, double cosionExtra, LocalDate creationDate) {
+    public Banco(int idBanco, String nombre, byte[] imageUrl, double balance, double tasaNomninal, double tasaEfectiva, double cosionExtra, LocalDate creationDate) {
         this.idBanco = idBanco;
         this.nombre = nombre;
         this.imageUrl = imageUrl;
@@ -61,11 +61,11 @@ public class Banco {
         this.nombre = nombre;
     }
 
-    public String getImageUrl() {
+    public byte[] getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(byte[] imageUrl) {
         this.imageUrl = imageUrl;
     }
 

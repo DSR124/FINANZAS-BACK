@@ -32,4 +32,9 @@ public class DocumentoServiceImplement implements IDocumentoService {
     public Documento listId(int idDocumento) {
         return docR.findById(idDocumento).orElse(new Documento());
     }
+
+    @Override
+    public List<Object[]> findDocumentosByCarteraId(int idCartera) {
+        return docR.findDocumentosByCarteraId(idCartera);
+    }
 }

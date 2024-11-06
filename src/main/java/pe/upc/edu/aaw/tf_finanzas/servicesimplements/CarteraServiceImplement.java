@@ -34,4 +34,8 @@ public class CarteraServiceImplement implements ICarteraService {
     public Cartera listId(int idCartera) {
         return CartR.findById(idCartera).orElse(new Cartera());
     }
+
+    @Override
+    public List<String[]> findAllCarteraWithDocumentCountAndTotalValue() { return CartR.findAllCarteraWithDocumentCountAndTotalValue();}
+
 }
