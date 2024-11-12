@@ -23,8 +23,11 @@ public interface ICarteraRepository extends JpaRepository<Cartera,Integer> {
             "COALESCE(SUM(d.valor_documento), 0) AS monto_total_cartera " +
             "FROM cartera c " +
             "LEFT JOIN empresa e ON c.id_empresa = e.id_empresa " +
+            "LEFT JOIN usuario u ON e.id_usuario = u.id_usuario " + // Unimos con la tabla usuario
             "LEFT JOIN documento d ON c.id_cartera = d.id_cartera " +
+            "WHERE u.username = :username " + // Filtro por username
             "GROUP BY c.id_cartera, c.nombre, c.fecha_creacion, c.fecha_descuento, e.nombre, c.tcea, c.moneda " +
             "ORDER BY c.id_cartera", nativeQuery = true)
-    List<String[]> findAllCarteraWithDocumentCountAndTotalValue();
+    List<String[]> findAllCarteraWithDocumentCountAndTotalValueByUsername(@Param("username") String username);
+
 }

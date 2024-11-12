@@ -59,4 +59,12 @@ public class UsuarioController {
     public int encontrarUltimoUsuario(){
         return uS.findLastUserRegister();
     }
+
+    // Nuevo: Obtener un usuario por username
+    @GetMapping("buscarPorUsername/{username}")
+    public UsuarioDTO obtenerUsuarioPorUsername(@PathVariable("username") String username) {
+        ModelMapper m = new ModelMapper();
+        Usuario usuario = uS.findByUsername(username);
+        return m.map(usuario, UsuarioDTO.class);
+    }
 }

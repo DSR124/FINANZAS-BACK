@@ -56,45 +56,30 @@ public class CarteraController {
         return emp;
     }
 
+    // Nuevo método para obtener carteras por username
+    @GetMapping("/findAllCarteraWithDocumentCountAndTotalValueByUsername/{username}")
+    public List<CarteraSummaryDTO> CarteraSummaryByUsername(@PathVariable("username") String username) {
+        List<String[]> rawData = carteR.findAllCarteraWithDocumentCountAndTotalValueByUsername(username);
+        List<CarteraSummaryDTO> dtoList = new ArrayList<>();
 
-    @GetMapping("/findAllCarteraWithDocumentCountAndTotalValue")
-    public List<CarteraSummaryDTO> CarteraSummary() {
-        List<String[]> listaa = carteR.findAllCarteraWithDocumentCountAndTotalValue();
-        List<CarteraSummaryDTO> lista_DTO = new ArrayList<>();
-
-        for (String[] data : listaa) {
+        for (String[] data : rawData) {
             CarteraSummaryDTO dto = new CarteraSummaryDTO();
 
-            // Manejo de conversión de idCartera
+            // Parsing and setting values
             dto.setIdCartera(data[0] != null ? Integer.parseInt(data[0]) : null);
-
             dto.setNombreCartera(data[1]);
-
-            // Conversión de fechaCreacion y fechaDescuento
-            if (data[2] != null && !data[2].isEmpty()) {
-                dto.setFechaCreacion(LocalDate.parse(data[2]));
-            }
-
-            if (data[3] != null && !data[3].isEmpty()) {
-                dto.setFechaDescuento(LocalDate.parse(data[3]));
-            }
-
+            dto.setFechaCreacion(data[2] != null && !data[2].isEmpty() ? LocalDate.parse(data[2]) : null);
+            dto.setFechaDescuento(data[3] != null && !data[3].isEmpty() ? LocalDate.parse(data[3]) : null);
             dto.setNombreEmpresa(data[4]);
-
-            // Conversión de TCEA
             dto.setTcea(data[5] != null ? Double.parseDouble(data[5]) : null);
-
             dto.setMoneda(data[6]);
-
-            // Conversión de cantidadDocumentos
             dto.setCantidadDocumentos(data[7] != null ? Long.parseLong(data[7]) : null);
-
-            // Conversión de montoTotalCartera
             dto.setMontoTotalCartera(data[8] != null ? Double.parseDouble(data[8]) : null);
 
-            lista_DTO.add(dto);
+            dtoList.add(dto);
         }
 
-        return lista_DTO;
+        return dtoList;
     }
+
 }
