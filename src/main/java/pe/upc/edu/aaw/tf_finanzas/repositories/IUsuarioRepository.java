@@ -11,12 +11,8 @@ import pe.upc.edu.aaw.tf_finanzas.entities.Usuario;
 public interface IUsuarioRepository  extends JpaRepository<Usuario,Integer> {
 
 
-    public Usuario findByUsername(String username);
 
-    //BUSCAR POR NOMBRE
-    @
-    Query("select count(u.username) from Usuario u where u.username =:username")
-    public int buscarUsername(@Param("username") String nombre);
+    public Usuario findByUsername(String username);
 
     @Transactional
     @Modifying
