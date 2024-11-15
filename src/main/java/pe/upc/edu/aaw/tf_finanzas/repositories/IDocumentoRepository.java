@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pe.upc.edu.aaw.tf_finanzas.entities.Documento;
+import pe.upc.edu.aaw.tf_finanzas.entities.Empresa;
 
 import javax.swing.text.Document;
 import java.util.List;
@@ -29,5 +30,9 @@ public interface IDocumentoRepository extends JpaRepository<Documento,Integer> {
             "JOIN documento d ON c.id_cartera = d.id_cartera " +
             "WHERE c.id_cartera = :idCartera", nativeQuery = true)
     List<Object[]> findDocumentosByCarteraId(@Param("idCartera") Integer idCartera);
+
+    @Query(value = "SELECT d.* FROM Documento d JOIN Cartera c ON d.id_cartera = c.id_cartera JOIN Empresa e ON c.id_empresa = e.id_empresa JOIN Usuario u ON e.id_usuario = u.id_usuario WHERE u.username = :username", nativeQuery = true)
+    List<Documento> findDocumentosByUsernameNative(@Param("username") String username);
+
 
 }

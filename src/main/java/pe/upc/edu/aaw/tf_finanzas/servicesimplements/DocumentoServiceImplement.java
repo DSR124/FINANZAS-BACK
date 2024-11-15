@@ -37,4 +37,12 @@ public class DocumentoServiceImplement implements IDocumentoService {
     public List<Object[]> findDocumentosByCarteraId(int idCartera) {
         return docR.findDocumentosByCarteraId(idCartera);
     }
+
+    @Override
+    public List<Documento> findDocumentosByUsernameNative(String username) {
+        return docR.findDocumentosByUsernameNative(username);
+    }
+
+
 }
+

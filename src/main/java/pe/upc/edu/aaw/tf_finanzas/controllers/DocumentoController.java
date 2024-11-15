@@ -2,21 +2,29 @@ package pe.upc.edu.aaw.tf_finanzas.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.upc.edu.aaw.tf_finanzas.dtos.DocumentoDTO;
 import pe.upc.edu.aaw.tf_finanzas.dtos.findDocumentosByCarteraIdDTO;
 import pe.upc.edu.aaw.tf_finanzas.entities.Documento;
+import pe.upc.edu.aaw.tf_finanzas.entities.Empresa;
 import pe.upc.edu.aaw.tf_finanzas.servicesinterfaces.IDocumentoService;
+import pe.upc.edu.aaw.tf_finanzas.servicesinterfaces.IUsuarioService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/Documento")
 public class DocumentoController {
     @Autowired
     private IDocumentoService carteR;
+    @Autowired
+    private IUsuarioService usuarioService;
     @PostMapping("Registrar")
     //@PreAuthorize("hasAuthority('administrador')")
     public void registrar(@RequestBody DocumentoDTO dto){
@@ -32,7 +40,14 @@ public class DocumentoController {
             return m.map(x,DocumentoDTO.class);
         }).collect(Collectors.toList());
     }
-
+    @GetMapping("ListarPorUsuario/{username}")
+    public List<DocumentoDTO> listarDocumentosPorUsuario(@PathVariable("username") String username) {
+        List<Documento> documentos = carteR.findDocumentosByUsernameNative(username);
+        ModelMapper modelMapper = new ModelMapper();
+        return documentos.stream()
+                .map(documento -> modelMapper.map(documento, DocumentoDTO.class))
+                .collect(Collectors.toList());
+    }
     @DeleteMapping("Eliminar/{id}")
     //  @PreAuthorize("hasAuthority('administrador')")
     public void eliminar(@PathVariable("id")Integer id){
@@ -53,6 +68,7 @@ public class DocumentoController {
         DocumentoDTO emp= m.map(carteR.listId(id), DocumentoDTO.class);
         return emp;
     }
+
 
     @GetMapping("ListarporIDCartera/{idCartera}")
     public List<findDocumentosByCarteraIdDTO> obtenerDocumentosPorCartera(@PathVariable("idCartera") Integer idCartera) {
@@ -78,5 +94,31 @@ public class DocumentoController {
         }
 
         return documentosDTO;
+    }
+    @DeleteMapping("Eliminar2/{id}")
+    public ResponseEntity<Map<String, String>> eliminarDocumento(@PathVariable("id") Integer id, @RequestParam("username") String username) {
+        // Buscar el documento por ID
+        Documento documento = carteR.listId(id);
+        if (documento == null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Documento no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        // Verificar si el usuario tiene permiso para eliminar el documento
+        Empresa empresa = documento.getCartera().getEmpresa();
+        if (!empresa.getUsuario().getUsername().equals(username)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "No tiene permiso para eliminar este documento");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+
+        // Eliminar el documento
+        carteR.delete(id);
+
+        // Devolver un mensaje de éxito
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Documento eliminado exitosamente");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
