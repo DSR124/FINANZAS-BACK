@@ -42,7 +42,10 @@ public class DocumentoServiceImplement implements IDocumentoService {
     public List<Documento> findDocumentosByUsernameNative(String username) {
         return docR.findDocumentosByUsernameNative(username);
     }
-
+    @Override
+    public void update(Documento documento) {
+        docR.save(documento); // Repositorio JPA guardará el documento actualizado
+    }
 
 }
 

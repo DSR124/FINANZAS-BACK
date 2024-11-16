@@ -61,6 +61,7 @@ public class DocumentoController {
         Documento d=m.map(dto, Documento.class);
         carteR.insert(d);
     }
+
     @GetMapping("ListarporID/{id}")
     // @PreAuthorize("hasAuthority('administrador')")
     public DocumentoDTO listarId(@PathVariable("id")Integer id){
@@ -121,4 +122,30 @@ public class DocumentoController {
         response.put("message", "Documento eliminado exitosamente");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PutMapping("ModificarEstado")
+    public ResponseEntity<Map<String, String>> modificarEstadoDocumento(
+            @RequestBody DocumentoDTO dto) {
+        ModelMapper modelMapper = new ModelMapper();
+        Documento documento = modelMapper.map(dto, Documento.class);
+
+        // Validar si el documento existe
+        Documento documentoExistente = carteR.listId(documento.getIdDocumento());
+        if (documentoExistente == null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Documento no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        // Actualizar el estado del documento
+        documentoExistente.setEstado("DESCONTADO"); // Cambiar el estado a "DESCONTADO"
+        carteR.update(documentoExistente);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Estado del documento actualizado exitosamente");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+
 }
