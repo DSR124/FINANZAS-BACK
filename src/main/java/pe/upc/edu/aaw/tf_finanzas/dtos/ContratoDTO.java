@@ -1,11 +1,12 @@
 package pe.upc.edu.aaw.tf_finanzas.dtos;
-import java.time.LocalDate;
+
 
 public class ContratoDTO {
+
     private Long id;
     private String currency;
     private double valorNominal;
-    private double tasaDescontada;
+    private double valorDescontado;
     private double valorRecibido;
     private Integer dias;
     private double tep;
@@ -39,12 +40,12 @@ public class ContratoDTO {
         this.valorNominal = valorNominal;
     }
 
-    public double getTasaDescontada() {
-        return tasaDescontada;
+    public double getValorDescontado() {
+        return valorDescontado;
     }
 
-    public void setTasaDescontada(double tasaDescontada) {
-        this.tasaDescontada = tasaDescontada;
+    public void setValorDescontado(double valorDescontado) {
+        this.valorDescontado = valorDescontado;
     }
 
     public double getValorRecibido() {
@@ -63,20 +64,20 @@ public class ContratoDTO {
         this.dias = dias;
     }
 
-    public String getTipoTasa() {
-        return tipoTasa;
-    }
-
-    public void setTipoTasa(String tipoTasa) {
-        this.tipoTasa = tipoTasa;
-    }
-
     public double getTep() {
         return tep;
     }
 
     public void setTep(double tep) {
         this.tep = tep;
+    }
+
+    public String getTipoTasa() {
+        return tipoTasa;
+    }
+
+    public void setTipoTasa(String tipoTasa) {
+        this.tipoTasa = tipoTasa;
     }
 
     public double getValorTasa() {

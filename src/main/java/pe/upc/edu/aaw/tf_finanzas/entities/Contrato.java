@@ -16,8 +16,8 @@ public class Contrato {
     private String currency;
     @Column(name ="valorNominal", nullable = false)
     private double valorNominal;
-    @Column(name ="tasaDescontada", nullable = false)
-    private double tasaDescontada;
+    @Column(name ="valorDescontado", nullable = false)
+    private double valorDescontado;
     @Column(name ="valorRecibido", nullable = false)
     private double valorRecibido;
     @Column(name ="dias", nullable = false)
@@ -43,11 +43,11 @@ public class Contrato {
     public Contrato() {
     }
 
-    public Contrato(Long id, String currency, double valorNominal, double tasaDescontada, double valorRecibido, Integer dias, double tep, String tipoTasa, double valorTasa, String estado, Documento documento, Banco banco) {
+    public Contrato(Long id, String currency, double valorNominal, double valorDescontado, double valorRecibido, Integer dias, double tep, String tipoTasa, double valorTasa, String estado, Documento documento, Banco banco) {
         this.id = id;
         this.currency = currency;
         this.valorNominal = valorNominal;
-        this.tasaDescontada = tasaDescontada;
+        this.valorDescontado = valorDescontado;
         this.valorRecibido = valorRecibido;
         this.dias = dias;
         this.tep = tep;
@@ -82,12 +82,12 @@ public class Contrato {
         this.valorNominal = valorNominal;
     }
 
-    public double getTasaDescontada() {
-        return tasaDescontada;
+    public double getValorDescontado() {
+        return valorDescontado;
     }
 
-    public void setTasaDescontada(double tasaDescontada) {
-        this.tasaDescontada = tasaDescontada;
+    public void setValorDescontado(double valorDescontado) {
+        this.valorDescontado = valorDescontado;
     }
 
     public double getValorRecibido() {
