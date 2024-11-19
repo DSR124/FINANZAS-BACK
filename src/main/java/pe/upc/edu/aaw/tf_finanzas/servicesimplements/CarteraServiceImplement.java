@@ -36,7 +36,7 @@ public class CarteraServiceImplement implements ICarteraService {
     }
 
     @Override
-    public List<String[]> findAllCarteraWithDocumentCountAndTotalValueByUsername(String username) {
+    public List<Object[]> findAllCarteraWithDocumentCountAndTotalValueByUsername(String username) {
         return CartR.findAllCarteraWithDocumentCountAndTotalValueByUsername(username);
     }
 }

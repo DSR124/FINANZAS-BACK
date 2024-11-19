@@ -17,17 +17,21 @@ public interface ICarteraRepository extends JpaRepository<Cartera,Integer> {
             "c.fecha_creacion, " +
             "c.fecha_descuento, " +
             "e.nombre AS nombre_empresa, " +
-            "c.tcea, " +
             "c.moneda, " +
             "COUNT(d.id_documento) AS cantidad_documentos, " +
-            "COALESCE(SUM(d.valor_documento), 0) AS monto_total_cartera " +
+            "COALESCE(SUM(d.valor_documento), 0) AS monto_total_cartera, " +
+            "CASE " +
+            "    WHEN COUNT(CASE WHEN d.estado != 'DESCONTADO' THEN 1 END) > 0 THEN 0 " +
+            "    ELSE COALESCE(AVG(con.tep), 0) " +
+            "END AS tcea " +
             "FROM cartera c " +
             "LEFT JOIN empresa e ON c.id_empresa = e.id_empresa " +
-            "LEFT JOIN usuario u ON e.id_usuario = u.id_usuario " + // Unimos con la tabla usuario
+            "LEFT JOIN usuario u ON e.id_usuario = u.id_usuario " +
             "LEFT JOIN documento d ON c.id_cartera = d.id_cartera " +
-            "WHERE u.username = :username " + // Filtro por username
-            "GROUP BY c.id_cartera, c.nombre, c.fecha_creacion, c.fecha_descuento, e.nombre, c.tcea, c.moneda " +
+            "LEFT JOIN contrato con ON d.id_documento = con.id_documento " +
+            "WHERE u.username = :username " +
+            "GROUP BY c.id_cartera, c.nombre, c.fecha_creacion, c.fecha_descuento, e.nombre, c.moneda " +
             "ORDER BY c.id_cartera", nativeQuery = true)
-    List<String[]> findAllCarteraWithDocumentCountAndTotalValueByUsername(@Param("username") String username);
+    List<Object[]> findAllCarteraWithDocumentCountAndTotalValueByUsername(@Param("username") String username);
 
 }

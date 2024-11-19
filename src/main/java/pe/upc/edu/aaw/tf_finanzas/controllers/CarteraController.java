@@ -56,30 +56,30 @@ public class CarteraController {
         return emp;
     }
 
-    // Nuevo método para obtener carteras por username
     @GetMapping("/findAllCarteraWithDocumentCountAndTotalValueByUsername/{username}")
     public List<CarteraSummaryDTO> CarteraSummaryByUsername(@PathVariable("username") String username) {
-        List<String[]> rawData = carteR.findAllCarteraWithDocumentCountAndTotalValueByUsername(username);
+        List<Object[]> rawData = carteR.findAllCarteraWithDocumentCountAndTotalValueByUsername(username);
         List<CarteraSummaryDTO> dtoList = new ArrayList<>();
 
-        for (String[] data : rawData) {
+        for (Object[] data : rawData) {
             CarteraSummaryDTO dto = new CarteraSummaryDTO();
 
             // Parsing and setting values
-            dto.setIdCartera(data[0] != null ? Integer.parseInt(data[0]) : null);
-            dto.setNombreCartera(data[1]);
-            dto.setFechaCreacion(data[2] != null && !data[2].isEmpty() ? LocalDate.parse(data[2]) : null);
-            dto.setFechaDescuento(data[3] != null && !data[3].isEmpty() ? LocalDate.parse(data[3]) : null);
-            dto.setNombreEmpresa(data[4]);
-            dto.setTcea(data[5] != null ? Double.parseDouble(data[5]) : null);
-            dto.setMoneda(data[6]);
-            dto.setCantidadDocumentos(data[7] != null ? Long.parseLong(data[7]) : null);
-            dto.setMontoTotalCartera(data[8] != null ? Double.parseDouble(data[8]) : null);
+            dto.setIdCartera(data[0] != null ? ((Number) data[0]).intValue() : null);
+            dto.setNombreCartera(data[1] != null ? data[1].toString() : null);
+            dto.setFechaCreacion(data[2] != null ? LocalDate.parse(data[2].toString()) : null);
+            dto.setFechaDescuento(data[3] != null ? LocalDate.parse(data[3].toString()) : null);
+            dto.setNombreEmpresa(data[4] != null ? data[4].toString() : null);
+            dto.setMoneda(data[5] != null ? data[5].toString() : null);
+            dto.setCantidadDocumentos(data[6] != null ? ((Number) data[6]).longValue() : null);
+            dto.setMontoTotalCartera(data[7] != null ? ((Number) data[7]).doubleValue() : null);
+            dto.setTcea(data[8] != null ? ((Number) data[8]).doubleValue() : 0.0); // Si es null, asignar 0.0
 
             dtoList.add(dto);
         }
-
         return dtoList;
     }
+
+
 
 }
