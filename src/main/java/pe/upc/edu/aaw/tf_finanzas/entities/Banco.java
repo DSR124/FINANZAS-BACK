@@ -24,9 +24,6 @@ public class Banco {
     @Column(name ="tasaEfectiva", nullable = false)
     private double tasaEfectiva;
 
-    @Column(name ="CosionExtra", nullable = false)
-    private double CosionExtra;
-
 
     @Column(name ="creationDate", nullable = false)
     private LocalDate creationDate;
@@ -34,14 +31,13 @@ public class Banco {
     public Banco() {
     }
 
-    public Banco(int idBanco, String nombre, byte[] imageUrl, double balance, double tasaNomninal, double tasaEfectiva, double cosionExtra, LocalDate creationDate) {
+    public Banco(int idBanco, String nombre, byte[] imageUrl, double balance, double tasaNomninal, double tasaEfectiva, LocalDate creationDate) {
         this.idBanco = idBanco;
         this.nombre = nombre;
         this.imageUrl = imageUrl;
         this.balance = balance;
         this.tasaNomninal = tasaNomninal;
         this.tasaEfectiva = tasaEfectiva;
-        CosionExtra = cosionExtra;
         this.creationDate = creationDate;
     }
 
@@ -93,13 +89,6 @@ public class Banco {
         this.tasaEfectiva = tasaEfectiva;
     }
 
-    public double getCosionExtra() {
-        return CosionExtra;
-    }
-
-    public void setCosionExtra(double cosionExtra) {
-        CosionExtra = cosionExtra;
-    }
 
     public LocalDate getCreationDate() {
         return creationDate;

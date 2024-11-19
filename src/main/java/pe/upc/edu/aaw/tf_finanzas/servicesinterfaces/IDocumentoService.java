@@ -12,5 +12,6 @@ public interface IDocumentoService {
     public Documento listId(int idDocumento);
     List<Object[]> findDocumentosByCarteraId(int idCartera);
     List<Documento> findDocumentosByUsernameNative(String username);
+    void update(Documento documento);
 
 }

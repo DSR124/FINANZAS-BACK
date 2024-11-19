@@ -14,7 +14,6 @@ public class BancoDTO {
     private double balance;
     private double tasaNomninal;
     private double tasaEfectiva;
-    private double CosionExtra;
     private LocalDate creationDate;
 
     public int getIdBanco() {
@@ -63,14 +62,6 @@ public class BancoDTO {
 
     public void setTasaEfectiva(double tasaEfectiva) {
         this.tasaEfectiva = tasaEfectiva;
-    }
-
-    public double getCosionExtra() {
-        return CosionExtra;
-    }
-
-    public void setCosionExtra(double cosionExtra) {
-        CosionExtra = cosionExtra;
     }
 
     public LocalDate getCreationDate() {

@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class ContratoController {
     @Autowired
     private IContratoService contR;
+
     @PostMapping("Registrar")
     //@PreAuthorize("hasAuthority('administrador')")
     public void registrar(@RequestBody ContratoDTO dto){
@@ -54,9 +55,11 @@ public class ContratoController {
         ContratoDTO emp= m.map(contR.listId(id), ContratoDTO.class);
         return emp;
     }
-
-
-
-
-
+    @GetMapping("/ListarPorUsuario/{username}")
+    public List<ContratoDTO> listarPorUsuario(@PathVariable("username") String username) {
+        ModelMapper modelMapper = new ModelMapper();
+        return contR.findContratosByUsernameNative(username).stream()
+                .map(contrato -> modelMapper.map(contrato, ContratoDTO.class))
+                .collect(Collectors.toList());
+    }
 }

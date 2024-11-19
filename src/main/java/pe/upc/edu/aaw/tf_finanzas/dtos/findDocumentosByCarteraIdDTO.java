@@ -16,6 +16,7 @@ public class findDocumentosByCarteraIdDTO {
     private String documentoCurrency;
     private String estado;
     private String tipoDocumento;
+    private Double tep; // Agregar el TEP del contrato asociado al documento
 
     public Integer getIdCartera() {
         return idCartera;
@@ -119,5 +120,13 @@ public class findDocumentosByCarteraIdDTO {
 
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    public Double getTep() {
+        return tep;
+    }
+
+    public void setTep(Double tep) {
+        this.tep = tep;
     }
 }

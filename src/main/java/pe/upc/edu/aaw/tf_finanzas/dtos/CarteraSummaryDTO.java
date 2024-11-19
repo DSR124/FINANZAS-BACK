@@ -8,11 +8,12 @@ public class CarteraSummaryDTO {
     private LocalDate fechaCreacion;
     private LocalDate fechaDescuento;
     private String nombreEmpresa;
-    private Double tcea;
+    private Double tcea; // TCEA promedio de los documentos "DESCONTADOS"
     private String moneda;
-    private Long cantidadDocumentos;
-    private Double montoTotalCartera;
+    private Long cantidadDocumentos; // Cantidad total de documentos asociados
+    private Double montoTotalCartera; // Suma total del valor de los documentos
 
+    // Getters and Setters
     public Integer getIdCartera() {
         return idCartera;
     }
