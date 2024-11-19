@@ -25,9 +25,11 @@ public interface IDocumentoRepository extends JpaRepository<Documento,Integer> {
             "d.cliente_phone, " +
             "d.currency AS documento_currency, " +
             "d.estado, " +
-            "d.tipo_documento " +
+            "d.tipo_documento, " +
+            "COALESCE(ct.tep, 0) AS tep_contrato " + // Incluye el TEP del contrato, usa COALESCE para manejar nulos
             "FROM cartera c " +
             "JOIN documento d ON c.id_cartera = d.id_cartera " +
+            "LEFT JOIN contrato ct ON d.id_documento = ct.id_documento " + // Relación con contrato
             "WHERE c.id_cartera = :idCartera", nativeQuery = true)
     List<Object[]> findDocumentosByCarteraId(@Param("idCartera") Integer idCartera);
 

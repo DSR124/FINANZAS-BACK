@@ -32,4 +32,10 @@ public class ContratoServiceImplement  implements IContratoService {
     public Contrato listId(int idContrato) {
         return conR.findById(idContrato).orElse(new Contrato());
     }
+
+    @Override
+    public List<Contrato> findContratosByUsernameNative(String username) {
+        return conR.findContratosByUsernameNative(username);
+    }
+
 }

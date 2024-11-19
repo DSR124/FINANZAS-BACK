@@ -70,7 +70,6 @@ public class DocumentoController {
         return emp;
     }
 
-
     @GetMapping("ListarporIDCartera/{idCartera}")
     public List<findDocumentosByCarteraIdDTO> obtenerDocumentosPorCartera(@PathVariable("idCartera") Integer idCartera) {
         List<Object[]> documentos = carteR.findDocumentosByCarteraId(idCartera);
@@ -78,24 +77,36 @@ public class DocumentoController {
 
         for (Object[] doc : documentos) {
             findDocumentosByCarteraIdDTO dto = new findDocumentosByCarteraIdDTO();
-            dto.setIdCartera((Integer) doc[0]);
-            dto.setNombreCartera((String) doc[1]);
+
+            // Mapear los valores de los índices de la consulta
+            dto.setIdCartera(doc[0] != null ? (Integer) doc[0] : null);
+            dto.setNombreCartera(doc[1] != null ? (String) doc[1] : null);
             dto.setFechaDescuento(doc[2] != null ? LocalDate.parse(doc[2].toString()) : null);
-            dto.setMoneda((String) doc[3]);
-            dto.setIdDocumento((Integer) doc[4]);
+            dto.setMoneda(doc[3] != null ? (String) doc[3] : null);
+            dto.setIdDocumento(doc[4] != null ? (Integer) doc[4] : null);
             dto.setFechaEmision(doc[5] != null ? LocalDate.parse(doc[5].toString()) : null);
             dto.setFechaVencimiento(doc[6] != null ? LocalDate.parse(doc[6].toString()) : null);
             dto.setValorDocumento(doc[7] != null ? Double.parseDouble(doc[7].toString()) : null);
-            dto.setClienteNombre((String) doc[8]);
-            dto.setClientePhone((String) doc[9]);
-            dto.setDocumentoCurrency((String) doc[10]);
-            dto.setEstado((String) doc[11]);
-            dto.setTipoDocumento((String) doc[12]);
+            dto.setClienteNombre(doc[8] != null ? (String) doc[8] : null);
+            dto.setClientePhone(doc[9] != null ? (String) doc[9] : null);
+            dto.setDocumentoCurrency(doc[10] != null ? (String) doc[10] : null);
+            dto.setEstado(doc[11] != null ? (String) doc[11] : null);
+            dto.setTipoDocumento(doc[12] != null ? (String) doc[12] : null);
+
+            // Verificar y asignar el TEP si está disponible en la consulta
+            if (doc.length > 13 && doc[13] != null) {
+                dto.setTep(Double.parseDouble(doc[13].toString()));
+            } else {
+                dto.setTep(0.0); // Si no existe TEP, asignar 0.0 como valor predeterminado
+            }
+
             documentosDTO.add(dto);
         }
 
         return documentosDTO;
     }
+
+
     @DeleteMapping("Eliminar2/{id}")
     public ResponseEntity<Map<String, String>> eliminarDocumento(@PathVariable("id") Integer id, @RequestParam("username") String username) {
         // Buscar el documento por ID
